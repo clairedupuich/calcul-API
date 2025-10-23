@@ -1,0 +1,20 @@
+今天的课程属于back-end.
+
+Id CommandLine
+  -- -----------
+   1 新建项目文件夹并用vscode打开。
+   2 git init
+   在github上新建一个仓库calcul-API
+   回到vscode终端
+   3 git remote add origin https://github.com/clairedupuich/ca... 
+   4 git branch -M main
+   5 npm init -y   使用npm init会生成一个pakeage.json文件
+   6 history
+   7 npm install express
+   新建文件夹Public并建三个相关文件在内。
+ 
+ 8 pour lancer serveur
+   node .\server.js 
+
+   npm install -g nodemon
+   nodemon server.js  

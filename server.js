@@ -1,8 +1,12 @@
-const express = require('express')
-const path = require('path')
-const app = express();
+// 服务器入口和配置中心. 角色定位：这是应用的"大门"和"总指挥"，负责接收所有请求并分发给相应的处理模块。
 
-// 这条命令的作用是：从当前文件所在目录的 ./api/routes.js（或 ./api/routes/index.js）文件中，导入一个已经配置好的路由对象（通常是一个 Express.Router 实例），
+// 这三个命令是 Express 应用的基础模板代码，在绝大多数 Express 项目中都是固定不变的。
+// 导入 Express 模块
+const express = require('express')
+const path = require('path')//导入 Node.js 内置的 path 模块
+const app = express(); //创建 Express 应用实例
+
+// 导入路由配置：从当前文件所在目录的 ./api/routes.js（或 ./api/routes/index.js）文件中，导入一个已经配置好的路由对象（通常是一个 Express.Router 实例），
 // 并将其赋值给本地变量 api_router，以便在当前文件中使用。
 const api_router = require('./api/routes')
 
@@ -10,8 +14,12 @@ const api_router = require('./api/routes')
 // 没有这个命令的话，客户端发送的 JSON 数据无法被读取
 app.use(express.json());
 app.use("/api", api_router);
+
+// 提供静态文件服务
 // 'public' est 我们刚刚创建的平级文件夹名字
 app.use(express.static(path.join(__dirname, 'public')))
+
+//  启动服务器
 app.listen(3000, () => {
     console.log("Serveur lancé sur http://localhost:3000");    
 })

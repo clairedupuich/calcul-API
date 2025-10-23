@@ -18,3 +18,129 @@ Id CommandLine
 
    npm install -g nodemon
    nodemon server.js  
+
+存放到远程仓库
+ 24 git add .
+  25 git commit -m "les fontionnalités de caltrice backend"
+  26 git push
+  27 git push --set-upstream origin main
+
+  好的，我来详细讲解这三个文件之间的关系和各自的作用。
+
+总体架构
+这是一个典型的 三层架构 的 Express 应用程序：
+
+text
+
+Copy
+
+Download
+客户端请求 → server.js → routes.js → calcultrice.js → 返回结果
+文件一：server.js - 服务器入口和配置中心
+主要作用：
+创建 Express 服务器实例
+
+配置全局中间件
+
+组织路由结构
+
+启动服务器监听
+
+核心功能详解：
+
+// 1. 导入路由配置
+const api_router = require('./api/routes')
+
+// 2. 配置中间件
+app.use(express.json());        // 解析 JSON 请求体
+app.use("/api", api_router);    // 为所有 API 路由添加前缀
+app.use(express.static(...));   // 提供静态文件服务
+
+// 3. 启动服务器
+app.listen(3000, callback);
+角色定位：这是应用的"大门"和"总指挥"，负责接收所有请求并分发给相应的处理模块。
+
+文件二：calcultrice.js - 业务逻辑核心
+主要作用：
+实现具体的数学运算逻辑
+
+封装可重用的纯函数
+
+提供运算功能的 API
+
+核心功能详解：
+javascript
+
+Copy
+
+Download
+// 纯粹的数学运算函数（无 HTTP 相关代码）
+function addition(a, b) { return a + b; }
+function soustraction(a, b) { return a - b; }
+// ... 其他运算函数
+
+// 暴露函数供其他模块使用
+module.exports = {addition, soustraction, multiplication, division, puissance};
+角色定位：这是应用的"计算引擎"，只关心数学运算，不涉及任何 Web 相关逻辑。
+
+文件三：routes.js - HTTP 接口层
+主要作用：
+定义 RESTful API 端点
+
+处理 HTTP 请求和响应
+
+连接前端请求与后端逻辑
+
+错误处理和状态码管理
+
+核心功能详解：
+javascript
+
+Copy
+
+Download
+// 1. 导入业务逻辑
+const { addition, soustraction, ... } = require("./calcultrice");
+
+// 2. 定义路由处理程序
+router.post('/addition', (req, res) => {
+    const {num1, num2} = req.body;                    // 提取数据
+    return res.status(200).json({resultat: addition(num1, num2)}) // 调用逻辑 + 返回响应
+});
+角色定位：这是应用的"交通警察"，负责将 HTTP 请求路由到正确的处理函数，并格式化返回响应。
+
+三者协作流程示例
+当一个客户端发送 POST 请求到 /api/addition 时：
+
+server.js 接收请求，解析 JSON 数据到 req.body
+
+server.js 将请求转发给 routes.js（因为路径匹配 /api）
+
+routes.js 找到对应的 /addition 路由处理函数
+
+routes.js 从 req.body 提取 num1 和 num2
+
+routes.js 调用 calcultrice.js 中的 addition 函数
+
+calcultrice.js 执行数学运算并返回结果
+
+routes.js 将结果包装成 JSON 响应返回
+
+server.js 将响应发送给客户端
+
+架构优势总结
+文件	职责分离	优点
+server.js	服务器配置	集中管理中间件、端口等基础设施
+routes.js	路由控制	清晰的 API 结构，易于维护和扩展
+calcultrice.js	业务逻辑	可重用、可测试的纯函数
+这种关注点分离的架构使得：
+
+✅ 代码更易维护：每部分职责明确
+
+✅ 易于测试：可以单独测试计算逻辑
+
+✅ 可扩展性强：添加新运算只需在对应文件添加
+
+✅ 团队协作友好：不同开发者可以负责不同层次
+
+这是一个非常经典和良好的 Express 应用结构！

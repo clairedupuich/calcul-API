@@ -1,0 +1,12 @@
+此项目基本结构如下
+├── server.js
+├── api/
+    ├── routes.js
+    ├── calcultrice.js
+└── public/
+    ├── index.html
+    ├── style.css
+    └── script.js
+
+public 3 是ai制作。其中的script.js文件中只定义了后端计算方式，没有本地计算方式。
+所以假如没有和项目中的其它文件链接好的话是不会显示计算结果的。

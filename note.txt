@@ -1,4 +1,15 @@
 今天的课程属于back-end.
+此项目基本结构如下
+├── server.js
+├── api/
+    ├── routes.js
+    ├── calcultrice.js
+└── public/
+    ├── index.html
+    ├── style.css
+    └── script.js
+
+注释：这里的public文件有三个，此项目中用的是 public 2_prof。这个是课堂上和formateur一起完成的。public3是ai做的。public是我自己结合ai一起完成的。
 
 Id CommandLine
   -- -----------
@@ -12,8 +23,11 @@ Id CommandLine
    6 history
    7 npm install express
    新建文件夹Public并建三个相关文件在内。
+  
+8 npm install cors
+
  
- 8 pour lancer serveur
+9 pour lancer serveur
    node .\server.js 
 
    npm install -g nodemon
@@ -144,3 +158,23 @@ calcultrice.js	业务逻辑	可重用、可测试的纯函数
 ✅ 团队协作友好：不同开发者可以负责不同层次
 
 这是一个非常经典和良好的 Express 应用结构！
+
+
+
+CORS模块的作用是：让浏览器允许网页从不同的域名（或端口）访问你的API接口。
+
+简单来说：
+
+没有CORS：你的前端网页无法调用后端API（浏览器会阻止）
+
+有CORS：前端可以正常调用后端API
+
+在你的计算器项目中：
+
+前端：http://localhost:3000
+
+后端API：http://localhost:3000/api
+
+CORS让它们可以互相通信，不会出现跨域错误
+
+就像给API开了一个"通行证"，让浏览器知道允许其他域名来访问。

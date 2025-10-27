@@ -1,20 +1,22 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculatrice</title>
+    <title>Document</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div class="container">
+    
     <h1>Calculatrice Express</h1>
-    <form id="formulaire">
+    <form id="calcForm">
         <label>
             Nombre 1:
-            <input id="nb1" type="number">
+            <input type="number" id="num1">
         </label>
         <label>
-            Opération:
+            Operation :
             <select id="operator">
                 <option value="+">Addition</option>
                 <option value="-">Soustraction</option>
@@ -24,16 +26,14 @@
             </select>
         </label>
         <label>
-            Nombre 2:
-            <input id="nb2" type="number">
+            Nombre 2 :
+            <input type="number" id="num2">
         </label>
         <button type="submit">Calculer</button>
     </form>
-    <h2 id="resultat">Résultat : __</h2>
-
+    <h2 id="resultat">Résultat : --</h2>
+    </div>
 
     <script src="script.js"></script>
-
-    
 </body>
 </html>

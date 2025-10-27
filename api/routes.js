@@ -50,7 +50,15 @@ router.post('/puissance', (req, res) => {
     return res.status(200).json({resultat: puissance(num1, num2)})
 })
 
+// ⭐ AJOUT: Route de test pour vérifier que l'API fonctionne / 添加测试路由验证API工作
+router.get('/test', (req, res) => {
+    res.status(200).json({ 
+        message: "API calculatrice fonctionne! / 计算器API工作正常!",
+        timestamp: new Date().toISOString()
+    });
+});
+
+
 //这个命令是 Node.js 的模块导出机制，它在路由文件中是必需的。
 // 作用是将创建好的路由器实例"暴露"出去，让其他文件能够导入和使用它。参考第10行创建常量router.
-
 module.exports = router;
